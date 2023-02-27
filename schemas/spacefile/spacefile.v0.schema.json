@@ -50,8 +50,7 @@
         },
         "src": {
           "description": "Relative path to the root directory of the Micro",
-          "type": "string",
-          "format": "uri"
+          "type": "string"
         },
         "engine": {
           "description": "Runtime engine for the Micro",
