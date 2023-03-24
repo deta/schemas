@@ -102,6 +102,10 @@
           "description": "Command to start the Micro",
           "type": "string"
         },
+        "dev": {
+          "description": "Command to start the Micro in development mode",
+          "type": "string"
+        },
         "presets": {
           "$ref": "#/definitions/presets"
         },
