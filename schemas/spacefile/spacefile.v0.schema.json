@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "$id": "https://raw.githubusercontent.com/deta/schemas/main/schemas/spacefile/spacefile.v0.schema.json",
+  "id": "https://raw.githubusercontent.com/deta/schemas/main/schemas/spacefile/spacefile.v0.schema.json",
   "$ref": "#/definitions/spacefile",
   "definitions": {
     "spacefile": {
@@ -214,8 +214,7 @@
         },
         "path": {
           "description": "Path of the Micro that will handle the action request",
-          "type": "string",
-          "format": "uri"
+          "type": "string"
         }
       },
       "required": [
