@@ -68,6 +68,44 @@
           - file
         run: executable
 
+- name: Serve property
+  description: Tests a configuration with a static Micro and a 'serve' property
+  valid: true
+  schema: spacefile
+  version: 0
+  data:
+    v: 0
+    micros:
+      - name: static-micro
+        src: .
+        engine: static
+        serve: dist
+
+- name: Missing serve property
+  description: Tests an invalid configuration with a static Micro and no 'serve' property
+  valid: false
+  schema: spacefile
+  version: 0
+  data:
+    v: 0
+    micros:
+      - name: static-micro
+        src: .
+        engine: static
+
+- name: Unexpected serve property
+  description: Tests an invalid configuration with a non-static Micro and a 'serve' property
+  valid: false
+  schema: spacefile
+  version: 0
+  data:
+    v: 0
+    micros:
+      - name: python-app
+        src: .
+        engine: python3.9
+        serve: dist
+
 # This test is currently not possible to validate because JSON Schema does not support unique item properties yet.
 # https://github.com/json-schema-org/json-schema-vocabularies/issues/22
 
