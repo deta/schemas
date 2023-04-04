@@ -37,10 +37,10 @@ async function runTests() {
     const validate = await getValidator(test.schema, test.version);
     const valid = validate(test.data);
     if (valid === test.valid) {
-      console.log(`✅ Validated ${test.name}`);
+      console.log(`✅ ${test.valid ? "V" : "Inv"}alidated ${test.name}`);
     } else {
       console.error(
-        `❌ Failed to validate ${test.name}
+        `❌ Failed to ${test.valid ? "V" : "Inv"}alidate ${test.name}
           Description: ${test.description}
           Schema: ${test.schema}
           Version: ${test.version}
