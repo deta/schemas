@@ -1,5 +1,5 @@
 import * as fs from "fs/promises";
-import Ajv from "ajv-draft-04";
+import Ajv from "ajv";
 import * as YAML from "yaml";
 
 const ajv = new Ajv();
