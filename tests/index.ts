@@ -4,60 +4,48 @@ import * as YAML from "yaml";
 
 const ajv = new Ajv();
 
-async function getSchema(filename: string): Promise<JSON> {
-  const name = filename.split(".")[0];
-  const contents = await fs.readFile(
-    `../schemas/${name}/${filename}`,
-    { encoding: "utf-8" },
-  );
-  try {
-    return JSON.parse(contents);
-  } catch (e) {
-    throw new Error(`Failed to load schema ${filename}`);
-  }
-}
+type Test = {
+  name: string;
+  description?: string;
+  valid: boolean;
+  schema: string;
+  version: number;
+  data: Object;
+};
 
-async function getTest(schema: string, version: string, name: string, positive: boolean = true) {
-  const contents = await fs.readFile(
-    `./${positive ? "positive" : "negative"}/${schema}/${version}/${name}`,
-    { encoding: "utf-8" },
-  );
-  try {
-    return JSON.parse(contents);
-  } catch (e) {
+async function getValidator(name: string, version: number) {
+  let validate = ajv.getSchema(`${name}.v${version}`);
+  if (!validate) {
+    let schema;
     try {
-      return YAML.parse(contents);
+      schema = JSON.parse(await fs.readFile(`../schemas/${name}/${name}.v${version}.schema.json`, { encoding: "utf-8" }));
     } catch (e) {
-      throw new Error(`Failed to load test ${schema}/${version}/${name}`);
+      console.error(`❌ Failed to load schema ${name} version ${version}`);
     }
+    ajv.addSchema(schema, `${name}.v${version}`);
+    validate = ajv.getSchema(`${name}.v${version}`);
   }
+  if (!validate) {
+    throw new Error(`Failed to load schema ${name} version ${version}`)
+  }
+  return validate;
 }
 
 async function runTests() {
-  const schemas = await fs.readdir("../schemas");
-  for (const schema of schemas) {
-    const schemaFiles = await fs.readdir(`../schemas/${schema}`);
-    for (const filename of schemaFiles) {
-      const version = filename.split(".")[1];
-      const positiveTests = await fs.readdir(`./positive/${schema}/${version}`);
-      for (const test of positiveTests) {
-        const data = await getTest(schema, version, test);
-        if (!ajv.validate(await getSchema(filename), data)) {
-          console.error(`❌ Failed to validate ${test} using schema ${schema} version ${version}`);
-        } else {
-          console.log(`✅ Validated ${test} using schema ${schema} version ${version}`);
-        }
-      }
-
-      const negativeTests = await fs.readdir(`./negative/${schema}/${version}`);
-      for (const test of negativeTests) {
-        const data = await getTest(schema, version, test, false);
-        if (ajv.validate(await getSchema(filename), data)) {
-          console.error(`❌ Failed to invalidate ${test} using schema ${schema} version ${version}`);
-        } else {
-          console.log(`✅ Invalidated ${test} using schema ${schema} version ${version}`);
-        }
-      }
+  const tests: Test[] = YAML.parse(await fs.readFile("./tests.yaml", { encoding: "utf-8" }));
+  for (const test of tests) {
+    const validate = await getValidator(test.schema, test.version);
+    const valid = validate(test.data);
+    if (valid === test.valid) {
+      console.log(`✅ Validated ${test.name}`);
+    } else {
+      console.error(
+        `❌ Failed to validate ${test.name}
+          Description: ${test.description}
+          Schema: ${test.schema}
+          Version: ${test.version}
+          Valid: ${test.valid}`
+      );
     }
   }
 }
