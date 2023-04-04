@@ -1,18 +1,9 @@
 import * as fs from "fs/promises";
 import Ajv from "ajv";
-import * as YAML from "yaml";
+import { tests } from "./tests";
 
 const ajv = new Ajv();
 const verbose = process.argv.includes("--verbose") || process.argv.includes("-v");
-
-type Test = {
-  name: string;
-  description?: string;
-  valid: boolean;
-  schema: string;
-  version: number;
-  data: Object;
-};
 
 async function getValidator(schemaName: string, version: number) {
   let validator = ajv.getSchema(`${schemaName}.v${version}`);
@@ -35,7 +26,6 @@ async function getValidator(schemaName: string, version: number) {
 }
 
 async function runTests() {
-  const tests: Test[] = YAML.parse(await fs.readFile("./tests.yaml", { encoding: "utf-8" }));
   for (const test of tests) {
     const validator = await getValidator(test.schema, test.version);
     if (!validator) {
