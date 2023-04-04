@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/tests",
+  "definitions": {
+    "tests": {
+      "title": "Tests",
+      "description": "Schema tests definitions",
+      "additionalProperties": false,
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/test"
+      }
+    },
+    "test": {
+      "title": "Test",
+      "description": "Schema test definition",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Test name",
+          "type": "string"
+        },
+        "description": {
+          "description": "Test description",
+          "type": "string"
+        },
+        "valid": {
+          "description": "True if validation should pass, otherwise false",
+          "type": "boolean"
+        },
+        "schema": {
+          "description": "Name of schema for validating the data",
+          "type": "string"
+        },
+        "version": {
+          "description": "Schema version",
+          "type": "integer"
+        },
+        "data": {
+          "description": "Data to validate",
+          "$ref": "../spacefile/spacefile.v0.schema.json#/definitions/spacefile"
+        }
+      },
+      "required": ["name", "valid", "schema", "version", "data"]
+    }
+  }
+}
