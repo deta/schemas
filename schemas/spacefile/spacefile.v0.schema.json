@@ -138,7 +138,8 @@
           "engine": {
             "enum": ["static", "react", "vue", "svelte"]
           }
-        }
+        },
+        "required": ["engine"]
       },
       "then": {
         "required": ["serve"]
