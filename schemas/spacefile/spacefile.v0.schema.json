@@ -144,7 +144,26 @@
         "src",
         "engine"
       ],
-      "$comment": "primary and serve required under some conditions"
+      "if": {
+        "properties": {
+          "engine": {
+            "enum": [
+              "static",
+              "react",
+              "vue",
+              "svelte"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": ["serve"]
+      },
+      "else": {
+        "not": {
+          "required": ["serve"]
+        }
+      }
     },
     "presets": {
       "title": "Presets",
