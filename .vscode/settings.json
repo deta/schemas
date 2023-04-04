@@ -3,6 +3,7 @@
         "Spacefile": "yaml"
     },
     "yaml.schemas": {
-        "./schemas/tests/tests.v0.schema.json": "tests/tests.*"
+        "./schemas/tests/tests.v0.schema.json": "tests/tests.*",
+        "./schemas/spacefile/spacefile.v0.schema.json": "Spacefile"
     }
 }
