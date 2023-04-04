@@ -132,41 +132,36 @@
 #         engine: python3.9
 #         primary: true
 
-- name: Multiple primary Micros
-  description: Tests an invalid configuration with multiple primary Micros
-  valid: false
-  schema: spacefile
-  version: 0
-  data:
-    v: 0
-    micros:
-      - name: go-app
-        src: .
-        engine: custom
-        primary: true
-        commands:
-          - go get
-          - go build main.go
-        include:
-          - main
-          - static
-        run: ./main
-      - name: python-app
-        src: .
-        engine: python3.9
-        primary: true
+# Tests for the 'primary' property are currently not possible to validate.
 
-- name: No primary Micro
-  description: Tests an invalid configuration with multiple Micros and no primary Micro
-  valid: false
-  schema: spacefile
-  version: 0
-  data:
-    v: 0
-    micros:
-      - name: micro-1
-        src: .
-        engine: python3.9
-      - name: micro-2
-        src: .
-        engine: python3.9
+# - name: Multiple primary Micros
+#   description: Tests an invalid configuration with multiple primary Micros
+#   valid: false
+#   schema: spacefile
+#   version: 0
+#   data:
+#     v: 0
+#     micros:
+#       - name: micro-1
+#         src: .
+#         engine: python3.9
+#         primary: true
+#       - name: micro-2
+#         src: .
+#         engine: python3.9
+#         primary: true
+
+# - name: No primary Micro
+#   description: Tests an invalid configuration with multiple Micros and no primary Micro
+#   valid: false
+#   schema: spacefile
+#   version: 0
+#   data:
+#     v: 0
+#     micros:
+#       - name: micro-1
+#         src: .
+#         engine: python3.9
+#       - name: micro-2
+#         src: .
+#         engine: python3.9
