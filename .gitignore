@@ -1,6 +1,3 @@
-# Custom ignores
-.vscode
-
 # Logs
 logs
 *.log
