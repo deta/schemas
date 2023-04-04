@@ -7,7 +7,6 @@ This repository contains JSON Schema definitions used by Deta software and servi
 |Name|Description|
 |--|--|
 |`spacefile`|Validation schema for the [Spacefile](https://deta.space/docs/en/reference/spacefile) configuration file.|
-|`tests`|Internal schema for the [`tests.yaml`](./tests/tests.yaml) file.|
 
 ## Testing
 
@@ -23,17 +22,17 @@ npm test
 
 Use `npm test -- --verbose` for verbose output.
 
-To add a new test, create a new array item in the [`tests.yaml`](./tests/tests.yaml) file with the following structure:
+To add a new test, create a new object in the [`tests.ts`](./tests/tests.ts) file with the following structure:
 
-```yaml
-- name: Name of the test
-  description: Description of what the test is testing
-  valid: |
-    True if the validation should pass for
-    the given data, false otherwise
-  schema: Name of the schema to test
-  version: Version of the schema to test
-  data: Sample data in YAML or JSON format to use for testing
+```ts
+{
+  name: "Name of the test",
+  description: "Description of what the test is testing",
+  valid: "'true' if the validation should pass for the given data, 'false' otherwise",
+  schema: "Name of the schema to test",
+  version: "Version of the schema to test",
+  data: "Sample data to use for testing",
+},
 ```
 
 ## Adding a schema
