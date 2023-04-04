@@ -68,28 +68,31 @@
           - file
         run: executable
 
-- name: Duplicate micros
-  description: Tests an invalid configuration with duplicate Micro names
-  valid: false
-  schema: spacefile
-  version: 0
-  data:
-    v: 0
-    micros:
-      - name: go-app
-        src: .
-        engine: custom
-        commands:
-          - go get
-          - go build main.go
-        include:
-          - main
-          - static
-        run: ./main
-      - name: go-app
-        src: .
-        engine: python3.9
-        primary: true
+# This test is currently not possible to validate because JSON Schema does not support unique item properties yet.
+# https://github.com/json-schema-org/json-schema-vocabularies/issues/22
+
+# - name: Duplicate micros
+#   description: Tests an invalid configuration with duplicate Micro names
+#   valid: false
+#   schema: spacefile
+#   version: 0
+#   data:
+#     v: 0
+#     micros:
+#       - name: go-app
+#         src: .
+#         engine: custom
+#         commands:
+#           - go get
+#           - go build main.go
+#         include:
+#           - main
+#           - static
+#         run: ./main
+#       - name: go-app
+#         src: .
+#         engine: python3.9
+#         primary: true
 
 - name: Multiple primary Micros
   description: Tests an invalid configuration with multiple primary Micros
