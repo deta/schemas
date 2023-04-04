@@ -22,7 +22,7 @@ npm test
 
 Use `npm test -- --verbose` for verbose output.
 
-To add a new test, create a new object in the [`tests.ts`](./tests/tests.ts) file with the following structure:
+To add a new test, create a new array item in the [`tests.ts`](./tests/tests.ts) file with the following structure:
 
 ```ts
 {
