@@ -1,6 +1,6 @@
 export type Test = {
   name: string;
-  description?: string;
+  description: string;
   valid: boolean;
   schema: string;
   version: number;
