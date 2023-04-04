@@ -124,6 +124,11 @@
             "type": "string"
           }
         },
+        "public": {
+          "description": "If the Micro should be available to the public",
+          "type": "boolean",
+          "default": false
+        },
         "actions": {
           "description": "Tasks that run on triggers like a schedule",
           "type": "array",
