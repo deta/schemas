@@ -1,3 +1,11 @@
+&root
+- name: Test tests schema
+  description: Test the schema that validates this file
+  valid: true
+  schema: tests
+  version: 0
+  data: *root
+
 - name: Spacefile test 1
   description: valid spacefile
   valid: true
