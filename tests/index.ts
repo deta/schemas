@@ -50,7 +50,8 @@ async function runTests() {
           `\tDescription: ${test.description}\n` +
           `\tValid: ${test.valid}\n` +
           `\tSchema: ${test.schema}\n` +
-          `\tVersion: ${test.version}\n`
+          `\tVersion: ${test.version}\n` +
+          `\tErrors:\n${validator.errors?.map((error) => `\t\t${error.instancePath}: ${error.message}\n`).join("")}`
       );
     }
   }
