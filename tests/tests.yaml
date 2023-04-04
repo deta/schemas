@@ -1,29 +1,53 @@
 &root
-- name: Test tests schema
+- name: Self-test
   description: Test the schema that validates this file
   valid: true
   schema: tests
   version: 0
   data: *root
 
-- name: Spacefile test 1
-  description: valid spacefile
+- name: Single Micro
+  description: Tests a Spacefile configuration with a single Micro
   valid: true
   schema: spacefile
   version: 0
   data:
     v: 0
     micros:
-      - name: micro-name
+      - name: go-app
         src: .
         engine: custom
         primary: true
-        path: micro/url
         commands:
-          - command
+          - go get
+          - go build main.go
         include:
-          - file
-        run: executable
+          - main
+          - static
+        run: ./main
+
+- name: Multiple Micros
+  description: Tests a Spacefile configuration with multiple Micros
+  valid: true
+  schema: spacefile
+  version: 0
+  data:
+    v: 0
+    micros:
+      - name: go-app
+        src: .
+        engine: custom
+        commands:
+          - go get
+          - go build main.go
+        include:
+          - main
+          - static
+        run: ./main
+      - name: python-app
+        src: .
+        engine: python3.9
+        primary: true
 
 - name: Invalid version
   description: Tests invalid value for 'v' attribute
@@ -43,3 +67,65 @@
         include:
           - file
         run: executable
+
+- name: Duplicate micros
+  description: Tests an invalid configuration with duplicate Micro names
+  valid: false
+  schema: spacefile
+  version: 0
+  data:
+    v: 0
+    micros:
+      - name: go-app
+        src: .
+        engine: custom
+        commands:
+          - go get
+          - go build main.go
+        include:
+          - main
+          - static
+        run: ./main
+      - name: go-app
+        src: .
+        engine: python3.9
+        primary: true
+
+- name: Multiple primary Micros
+  description: Tests an invalid configuration with multiple primary Micros
+  valid: false
+  schema: spacefile
+  version: 0
+  data:
+    v: 0
+    micros:
+      - name: go-app
+        src: .
+        engine: custom
+        primary: true
+        commands:
+          - go get
+          - go build main.go
+        include:
+          - main
+          - static
+        run: ./main
+      - name: python-app
+        src: .
+        engine: python3.9
+        primary: true
+
+- name: No primary Micro
+  description: Tests an invalid configuration with multiple Micros and no primary Micro
+  valid: false
+  schema: spacefile
+  version: 0
+  data:
+    v: 0
+    micros:
+      - name: micro-1
+        src: .
+        engine: svelte
+      - name: micro-2
+        src: .
+        engine: svelte
