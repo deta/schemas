@@ -11,7 +11,7 @@ async function getValidator(schemaName: string, version: number) {
     let schema;
     try {
       schema = JSON.parse(
-        await fs.readFile(`../schemas/${schemaName}/${schemaName}.v${version}.schema.json`, { encoding: "utf-8" })
+        await fs.readFile(`../schemas/${schemaName}/${schemaName}.v${version}.schema.json`, { encoding: "utf-8" }),
       );
     } catch (error) {
       if (verbose) {
@@ -26,10 +26,12 @@ async function getValidator(schemaName: string, version: number) {
 }
 
 async function runTests() {
+  let passed = true;
   for (const test of tests) {
     const validator = await getValidator(test.schema, test.version);
     if (!validator) {
       console.error(`❌ Failed to load schema "${test.schema}" version ${test.version}`);
+      passed = false;
       continue;
     }
     const valid = validator(test.data);
@@ -44,8 +46,12 @@ async function runTests() {
       console.log(`✅ ${test.valid ? "V" : "Inv"}alidated "${test.name}"` + details);
     } else {
       console.error(`❌ Failed to ${test.valid ? "v" : "inv"}alidate "${test.name}"` + details);
+      passed = false;
     }
   }
+  return passed;
 }
 
-runTests();
+runTests().then((passed) => {
+  process.exit(passed ? 0 : 1);
+});
