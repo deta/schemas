@@ -12,9 +12,7 @@
         "v": {
           "description": "Version number of the Spacefile",
           "type": "integer",
-          "enum": [
-            0
-          ],
+          "enum": [0],
           "default": 0
         },
         "icon": {
@@ -37,10 +35,7 @@
           }
         }
       },
-      "required": [
-        "v",
-        "micros"
-      ]
+      "required": ["v", "micros"]
     },
     "micro": {
       "title": "Micro",
@@ -139,20 +134,11 @@
           }
         }
       },
-      "required": [
-        "name",
-        "src",
-        "engine"
-      ],
+      "required": ["name", "src", "engine"],
       "if": {
         "properties": {
           "engine": {
-            "enum": [
-              "static",
-              "react",
-              "vue",
-              "svelte"
-            ]
+            "enum": ["static", "react", "vue", "svelte"]
           }
         }
       },
@@ -205,9 +191,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "name"
-      ]
+      "required": ["name"]
     },
     "action": {
       "title": "Action",
@@ -231,9 +215,7 @@
         "trigger": {
           "description": "Trigger for the action",
           "type": "string",
-          "enum": [
-            "schedule"
-          ],
+          "enum": ["schedule"],
           "default": "schedule"
         },
         "default_interval": {
@@ -245,12 +227,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "id",
-        "name",
-        "trigger",
-        "default_interval"
-      ]
+      "required": ["id", "name", "trigger", "default_interval"]
     }
   }
 }
