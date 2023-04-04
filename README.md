@@ -21,6 +21,8 @@ npm install
 npm test
 ```
 
+Use `npm test -- --verbose` for verbose output.
+
 To add a new test, create a new array item in the [`tests.yaml`](./tests/tests.yaml) file with the following structure:
 
 ```yaml
