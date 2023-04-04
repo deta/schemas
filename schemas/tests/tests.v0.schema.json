@@ -39,6 +39,7 @@
         },
         "data": {
           "description": "Data to validate",
+          "$comment": "temporarily set to spacefile schema, maybe figure out some conditional wizardry to get schema and version from data",
           "$ref": "../spacefile/spacefile.v0.schema.json#/definitions/spacefile"
         }
       },
