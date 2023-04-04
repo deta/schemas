@@ -125,7 +125,7 @@
     micros:
       - name: micro-1
         src: .
-        engine: svelte
+        engine: python3.9
       - name: micro-2
         src: .
-        engine: svelte
+        engine: python3.9
