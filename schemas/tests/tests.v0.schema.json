@@ -5,7 +5,6 @@
     "tests": {
       "title": "Tests",
       "description": "Schema tests definitions",
-      "additionalProperties": false,
       "type": "array",
       "items": {
         "$ref": "#/definitions/test"
@@ -38,9 +37,8 @@
           "type": "integer"
         },
         "data": {
-          "description": "Data to validate",
-          "$comment": "temporarily set to spacefile schema, maybe figure out some conditional wizardry to get schema and version from data",
-          "$ref": "../spacefile/spacefile.v0.schema.json#/definitions/spacefile"
+          "title": "Data",
+          "description": "Data to validate"
         }
       },
       "required": ["name", "valid", "schema", "version", "data"]
