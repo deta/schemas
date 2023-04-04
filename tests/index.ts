@@ -3,6 +3,7 @@ import Ajv from "ajv";
 import * as YAML from "yaml";
 
 const ajv = new Ajv();
+const verbose = process.argv.includes("--verbose") || process.argv.includes("-v");
 
 type Test = {
   name: string;
@@ -22,7 +23,7 @@ async function getValidator(schemaName: string, version: number) {
         await fs.readFile(`../schemas/${schemaName}/${schemaName}.v${version}.schema.json`, { encoding: "utf-8" })
       );
     } catch (error) {
-      if (process.argv.includes("--verbose") || process.argv.includes("-v")) {
+      if (verbose) {
         console.error(error);
       }
       return;
@@ -42,17 +43,17 @@ async function runTests() {
       continue;
     }
     const valid = validator(test.data);
+    const details = verbose
+      ? `\n\tDescription: ${test.description}\n` +
+        `\tValid: ${test.valid}\n` +
+        `\tSchema: ${test.schema}\n` +
+        `\tVersion: ${test.version}\n` +
+        `\tErrors: ${validator.errors?.map((error) => `\n\t\t${error.instancePath}: ${error.message}`).join("")}\n`
+      : "";
     if (valid === test.valid) {
-      console.log(`✅ ${test.valid ? "V" : "Inv"}alidated "${test.name}"`);
+      console.log(`✅ ${test.valid ? "V" : "Inv"}alidated "${test.name}"` + details);
     } else {
-      console.error(
-        `❌ Failed to ${test.valid ? "v" : "inv"}alidate "${test.name}"\n` +
-          `\tDescription: ${test.description}\n` +
-          `\tValid: ${test.valid}\n` +
-          `\tSchema: ${test.schema}\n` +
-          `\tVersion: ${test.version}\n` +
-          `\tErrors: ${validator.errors?.map((error) => `\n\t\t${error.instancePath}: ${error.message}`).join("")}\n`
-      );
+      console.error(`❌ Failed to ${test.valid ? "v" : "inv"}alidate "${test.name}"` + details);
     }
   }
 }
