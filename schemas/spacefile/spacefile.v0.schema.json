@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/deta/schemas/main/schemas/spacefile/spacefile.v0.schema.json",
   "$ref": "#/definitions/spacefile",
   "definitions": {
@@ -12,9 +12,7 @@
         "v": {
           "description": "Version number of the Spacefile",
           "type": "integer",
-          "enum": [
-            0
-          ],
+          "enum": [0],
           "default": 0
         },
         "icon": {
@@ -31,16 +29,12 @@
           "type": "array",
           "minItems": 1,
           "maxItems": 5,
-          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/micro"
           }
         }
       },
-      "required": [
-        "v",
-        "micros"
-      ]
+      "required": ["v", "micros"]
     },
     "micro": {
       "title": "Micro",
@@ -99,6 +93,7 @@
           "description": "Files and directories in the Micro's source directory that should be part of the final app package",
           "type": "array",
           "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "type": "string"
           }
@@ -118,9 +113,15 @@
           "description": "Routes that will be available publicly",
           "type": "array",
           "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "type": "string"
           }
+        },
+        "public": {
+          "description": "If the Micro should be available to the public",
+          "type": "boolean",
+          "default": false
         },
         "actions": {
           "description": "Tasks that run on triggers like a schedule",
@@ -131,12 +132,23 @@
           }
         }
       },
-      "required": [
-        "name",
-        "src",
-        "engine"
-      ],
-      "$comment": "primary and serve required under some conditions"
+      "required": ["name", "src", "engine"],
+      "if": {
+        "properties": {
+          "engine": {
+            "enum": ["static", "react", "vue", "svelte"]
+          }
+        },
+        "required": ["engine"]
+      },
+      "then": {
+        "required": ["serve"]
+      },
+      "else": {
+        "not": {
+          "required": ["serve"]
+        }
+      }
     },
     "presets": {
       "title": "Presets",
@@ -177,9 +189,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "name"
-      ]
+      "required": ["name"]
     },
     "action": {
       "title": "Action",
@@ -203,9 +213,7 @@
         "trigger": {
           "description": "Trigger for the action",
           "type": "string",
-          "enum": [
-            "schedule"
-          ],
+          "enum": ["schedule"],
           "default": "schedule"
         },
         "default_interval": {
@@ -214,16 +222,10 @@
         },
         "path": {
           "description": "Path of the Micro that will handle the action request",
-          "type": "string",
-          "format": "uri"
+          "type": "string"
         }
       },
-      "required": [
-        "id",
-        "name",
-        "trigger",
-        "default_interval"
-      ]
+      "required": ["id", "name", "trigger", "default_interval"]
     }
   }
 }
