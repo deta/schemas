@@ -4,7 +4,7 @@
   "description": "Test JSON schemas.",
   "main": "./dist/index.js",
   "scripts": {
-    "test": "npx tsc -p . && node ./dist/index.js"
+    "test": "npx tsc -p . && node ./dist/tests/index.js"
   },
   "author": "Deta",
   "license": "ISC",
