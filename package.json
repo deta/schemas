@@ -1,0 +1,18 @@
+{
+  "name": "tests",
+  "version": "1.0.0",
+  "description": "Test JSON schemas.",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "npx tsc -p . && node ./dist/tests/index.js"
+  },
+  "author": "Deta",
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "^8.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "typescript": "^5.0.3"
+  }
+}

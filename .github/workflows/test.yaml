@@ -1,0 +1,24 @@
+name: Tests
+
+on:
+  push:
+    paths:
+      - ".github/workflows/**"
+      - "schemas/**"
+      - "tests/**"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test -- --verbose || exit 1
