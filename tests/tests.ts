@@ -162,7 +162,7 @@ export const tests: Test[] = [
         {
           name: "static-micro",
           src: ".",
-          engine: "static",
+          engine: "react",
           include: ["dist"],
         },
       ],
