@@ -12,7 +12,9 @@
         "v": {
           "description": "Version number of the Spacefile",
           "type": "integer",
-          "enum": [0],
+          "enum": [
+            0
+          ],
           "default": 0
         },
         "icon": {
@@ -34,7 +36,10 @@
           }
         }
       },
-      "required": ["v", "micros"]
+      "required": [
+        "v",
+        "micros"
+      ]
     },
     "micro": {
       "title": "Micro",
@@ -132,23 +137,81 @@
           }
         }
       },
-      "required": ["name", "src", "engine"],
-      "if": {
-        "properties": {
-          "engine": {
-            "enum": ["static", "react", "vue", "svelte"]
+      "required": [
+        "name",
+        "src",
+        "engine"
+      ],
+      "allOf": [
+        {
+          "$comment": "If the Micro is a static Micro, it must have a serve property",
+          "if": {
+            "properties": {
+              "engine": {
+                "enum": [
+                  "static"
+                ]
+              }
+            },
+            "required": [
+              "engine"
+            ]
+          },
+          "then": {
+            "required": [
+              "serve"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "serve"
+              ]
+            }
           }
         },
-        "required": ["engine"]
-      },
-      "then": {
-        "required": ["serve"]
-      },
-      "else": {
-        "not": {
-          "required": ["serve"]
+        {
+          "$comment": "If the Micro is dynamic, it must not have a serve property",
+          "not": {
+            "required": [
+              "serve",
+              "engine"
+            ],
+            "properties": {
+              "engine": {
+                "enum": [
+                  "next",
+                  "nuxt",
+                  "svelte-kit",
+                  "python3.9",
+                  "python3.8",
+                  "nodejs16",
+                  "custom"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "$comment": "If the Micro is static, it must not have an include property",
+          "not": {
+            "required": [
+              "include",
+              "engine"
+            ],
+            "properties": {
+              "engine": {
+                "enum": [
+                  "static",
+                  "react",
+                  "vue",
+                  "svelte"
+                ]
+              }
+            }
+          }
         }
-      }
+      ]
     },
     "presets": {
       "title": "Presets",
@@ -189,7 +252,9 @@
           "type": "string"
         }
       },
-      "required": ["name"]
+      "required": [
+        "name"
+      ]
     },
     "action": {
       "title": "Action",
@@ -213,7 +278,9 @@
         "trigger": {
           "description": "Trigger for the action",
           "type": "string",
-          "enum": ["schedule"],
+          "enum": [
+            "schedule"
+          ],
           "default": "schedule"
         },
         "default_interval": {
@@ -225,7 +292,12 @@
           "type": "string"
         }
       },
-      "required": ["id", "name", "trigger", "default_interval"]
+      "required": [
+        "id",
+        "name",
+        "trigger",
+        "default_interval"
+      ]
     }
   }
 }

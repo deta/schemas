@@ -77,7 +77,8 @@ export const tests: Test[] = [
   },
   {
     name: "Serve property",
-    description: "Tests a configuration with a static Micro and a 'serve' property",
+    description:
+      "Tests a configuration with a static Micro and a 'serve' property",
     valid: true,
     schema: "spacefile",
     version: 0,
@@ -95,7 +96,8 @@ export const tests: Test[] = [
   },
   {
     name: "Missing serve property",
-    description: "Tests an invalid configuration with a static Micro and no 'serve' property",
+    description:
+      "Tests an invalid configuration with a static Micro and no 'serve' property",
     valid: false,
     schema: "spacefile",
     version: 0,
@@ -112,7 +114,64 @@ export const tests: Test[] = [
   },
   {
     name: "Unexpected serve property",
-    description: "Tests an invalid configuration with a non-static Micro and a 'serve' property",
+    description:
+      "Tests an invalid configuration with a non-static Micro and a 'serve' property",
+    valid: false,
+    schema: "spacefile",
+    version: 0,
+    data: {
+      v: 0,
+      micros: [
+        {
+          name: "python-app",
+          src: ".",
+          engine: "python3.9",
+          serve: "dist",
+        },
+      ],
+    },
+  },
+  {
+    name: "Static Micro without serve property",
+    description:
+      "Tests an invalid configuration with a static Micro and no 'serve' property",
+    valid: false,
+    schema: "spacefile",
+    version: 0,
+    data: {
+      v: 0,
+      micros: [
+        {
+          name: "static-micro",
+          src: ".",
+          engine: "static",
+        },
+      ],
+    },
+  },
+  {
+    name: "Static Micro with include property",
+    description:
+      "Tests an invalid configuration with a static Micro and an 'include' property",
+    valid: false,
+    schema: "spacefile",
+    version: 0,
+    data: {
+      v: 0,
+      micros: [
+        {
+          name: "static-micro",
+          src: ".",
+          engine: "static",
+          include: ["dist"],
+        },
+      ],
+    },
+  },
+  {
+    name: "Dynamic Micro with serve property",
+    description:
+      "Tests an invalid configuration with a dynamic Micro and a 'serve' property",
     valid: false,
     schema: "spacefile",
     version: 0,
