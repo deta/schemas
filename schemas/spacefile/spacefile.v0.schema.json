@@ -133,21 +133,43 @@
         }
       },
       "required": ["name", "src", "engine"],
-      "if": {
-        "properties": {
-          "engine": {
-            "enum": ["static", "react", "vue", "svelte"]
+      "allOf": [
+        {
+          "$comment": "If engine is static, then serve is required",
+          "if": {
+            "properties": {
+              "engine": {
+                "const": "static"
+              }
+            },
+            "required": ["engine"]
+          },
+          "then": {
+            "required": ["serve"]
+          }
+        },
+        {
+          "$comment": "If engine is static or static-like, then include is not allowed, otherwise serve is not allowed",
+          "if": {
+            "properties": {
+              "engine": {
+                "enum": ["static", "react", "vue", "svelte"]
+              }
+            },
+            "required": ["engine"]
+          },
+          "then": {
+            "not": {
+              "required": ["include"]
+            }
+          },
+          "else": {
+            "not": {
+              "required": ["serve"]
+            }
           }
         }
-      },
-      "then": {
-        "required": ["serve"]
-      },
-      "else": {
-        "not": {
-          "required": ["serve"]
-        }
-      }
+      ]
     },
     "presets": {
       "title": "Presets",
