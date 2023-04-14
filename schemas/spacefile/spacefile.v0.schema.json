@@ -19,11 +19,6 @@
           "description": "Path to an icon image file (PNG or WebP file of 512x512 pixels)",
           "type": "string"
         },
-        "app_name": {
-          "description": "Display name of the app",
-          "type": "string",
-          "maxLength": 12
-        },
         "micros": {
           "description": "List of Micros in the app",
           "type": "array",
