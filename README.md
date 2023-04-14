@@ -15,7 +15,6 @@ This repository includes a utility to both validate schema files, and validate s
 To run the tests, run the following commands from the repository root:
 
 ```bash
-cd tests
 npm install
 npm test
 ```
