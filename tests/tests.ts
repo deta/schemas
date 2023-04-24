@@ -187,7 +187,26 @@ export const tests: Test[] = [
       ],
     },
   },
-
+  {
+    name: "public and public_routes at the same time",
+    description:
+      "Tests an invalid configuration with both 'public' and 'public_routes' properties",
+    valid: false,
+    schema: "spacefile",
+    version: 0,
+    data: {
+      v: 0,
+      micros: [
+        {
+          name: "static-micro",
+          src: ".",
+          engine: "python3.9",
+          public: true,
+          public_routes: ["public"],
+        },
+      ],
+    },
+  },
   // This test is currently not possible to validate because JSON Schema does not support unique item properties yet.
   // https://github.com/json-schema-org/json-schema-vocabularies/issues/22
 

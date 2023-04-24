@@ -12,7 +12,9 @@
         "v": {
           "description": "Version number of the Spacefile",
           "type": "integer",
-          "enum": [0],
+          "enum": [
+            0
+          ],
           "default": 0
         },
         "icon": {
@@ -34,7 +36,10 @@
           }
         }
       },
-      "required": ["v", "micros"]
+      "required": [
+        "v",
+        "micros"
+      ]
     },
     "micro": {
       "title": "Micro",
@@ -133,7 +138,11 @@
           }
         }
       },
-      "required": ["name", "src", "engine"],
+      "required": [
+        "name",
+        "src",
+        "engine"
+      ],
       "allOf": [
         {
           "$comment": "If engine is static, then serve is required",
@@ -143,10 +152,23 @@
                 "const": "static"
               }
             },
-            "required": ["engine"]
+            "required": [
+              "engine"
+            ]
           },
           "then": {
-            "required": ["serve"]
+            "required": [
+              "serve"
+            ]
+          }
+        },
+        {
+          "$comment": "public and public_routes are mutually exclusive",
+          "not": {
+            "required": [
+              "public",
+              "public_routes"
+            ]
           }
         },
         {
@@ -154,19 +176,30 @@
           "if": {
             "properties": {
               "engine": {
-                "enum": ["static", "react", "vue", "svelte"]
+                "enum": [
+                  "static",
+                  "react",
+                  "vue",
+                  "svelte"
+                ]
               }
             },
-            "required": ["engine"]
+            "required": [
+              "engine"
+            ]
           },
           "then": {
             "not": {
-              "required": ["include"]
+              "required": [
+                "include"
+              ]
             }
           },
           "else": {
             "not": {
-              "required": ["serve"]
+              "required": [
+                "serve"
+              ]
             }
           }
         }
@@ -211,7 +244,9 @@
           "type": "string"
         }
       },
-      "required": ["name"]
+      "required": [
+        "name"
+      ]
     },
     "action": {
       "title": "Action",
@@ -235,7 +270,9 @@
         "trigger": {
           "description": "Trigger for the action",
           "type": "string",
-          "enum": ["schedule"],
+          "enum": [
+            "schedule"
+          ],
           "default": "schedule"
         },
         "default_interval": {
@@ -247,7 +284,12 @@
           "type": "string"
         }
       },
-      "required": ["id", "name", "trigger", "default_interval"]
+      "required": [
+        "id",
+        "name",
+        "trigger",
+        "default_interval"
+      ]
     }
   }
 }
